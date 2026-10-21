@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1b1730" />
+  <meta name="description" content="A little pixel-art movie night invitation, made with love." />
+  <title>Movie Night? ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --midnight:#17152b;--ink:#282036;--plum:#33273e;--lav:#8f779b;
+      --rose:#fc84ab;--rose-deep:#d95187;--cream:#ffe4d2;--peach:#ffbf91;
+      --white:#fff3e9;--gold:#ffd08a;
+      --px:'Pixelify Sans', 'Courier New', monospace;
+      --tiny:'Press Start 2P','Courier New',monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-width:320px;background:#100f22;color:var(--white);font-family:var(--px);font-size:19px;overflow-x:hidden}
+    button,a{-webkit-tap-highlight-color:transparent}
+    button{font:inherit;cursor:pointer}
+    a{color:inherit}
+    button:focus-visible,a:focus-visible{outline:3px dashed var(--gold);outline-offset:6px}
+    ::selection{background:#ec7fa6;color:#27182d}
+
+    /* The starry night continues behind the "window". */
+    .night-sky{position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+      radial-gradient(ellipse at 9% 40%,#4b294e77,transparent 38%),
+      radial-gradient(ellipse at 92% 70%,#60365044,transparent 40%),
+      linear-gradient(180deg,#100f27 0%,#24172e 72%,#42273d 100%)}
+    .night-sky::after{content:"";position:absolute;inset:0;opacity:.33;background-image:
+      radial-gradient(circle,#fbdcba 1px,transparent 1.2px),radial-gradient(circle,#fc9db7 1px,transparent 1.2px);
+      background-size:87px 89px,127px 113px;background-position:9px 21px,63px 49px;animation:starGlow 5s steps(2) infinite}
+    @keyframes starGlow{50%{opacity:.16}}
+    .sky-heart{position:fixed;pointer-events:none;font:20px var(--px);color:var(--rose);text-shadow:0 0 12px #ff669c77;opacity:.45;z-index:-1;animation:skyFloat 7s ease-in-out infinite}
+    .sky-heart.a{left:4%;top:30%}.sky-heart.b{right:5%;top:19%;animation-delay:-3s}.sky-heart.c{right:7%;top:78%;animation-delay:-5s}
+    @keyframes skyFloat{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-17px) rotate(7deg)}}
+
+    .site{width:min(1210px,calc(100% - 40px));margin:28px auto 54px;position:relative}
+    .outer-frame{border:4px solid #654663;box-shadow:0 0 0 4px #21172d,0 0 0 7px #a86483,0 18px 0 #0e0b1d,0 25px 50px #0007;background:linear-gradient(115deg,#34233e,#241d37 55%,#38263d);position:relative;overflow:hidden}
+    .outer-frame::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 90px #100b1a88}
+    .string-lights{position:absolute;top:0;left:0;width:100%;height:70px;pointer-events:none;z-index:3;background:radial-gradient(ellipse 50% 20px at 50% 0,#1c1327 45%,transparent 48%)}
+    .string-lights::before{content:"";position:absolute;top:0;left:0;width:100%;height:22px;border-bottom:2px solid #9b647e;border-radius:0 0 50% 50%;opacity:.65}
+    .light{width:8px;height:12px;position:absolute;top:18px;background:#ffd18c;box-shadow:0 0 0 3px #f49d6c44,0 0 16px 7px #ed9b5877;clip-path:polygon(25% 0,75% 0,100% 40%,50% 100%,0 40%);animation:twinkle 3s steps(3) infinite alternate}
+    .light:nth-child(2){top:27px;left:11%;animation-delay:-.6s}.light:nth-child(3){top:31px;left:23%;animation-delay:-1.5s}.light:nth-child(4){top:32px;right:24%;animation-delay:-1s}.light:nth-child(5){top:27px;right:12%;animation-delay:-2s}.light:first-child{top:17px;left:3%}.light:last-child{top:17px;right:3%}
+    @keyframes twinkle{50%{opacity:.5;filter:brightness(.7)}}
+
+    .topbar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:70px;padding:19px 37px 12px;background:#19172b99;border-bottom:2px solid #76526d;z-index:5}
+    .brand{font-family:var(--tiny);font-size:11px;white-space:nowrap;color:var(--peach);text-shadow:2px 2px #723953}
+    .brand span{color:#fd7ba9}
+    .nav{display:flex;align-items:center;gap:23px}
+    .nav a{font-size:17px;text-decoration:none;color:#ead4dc;white-space:nowrap;transition:color .15s}
+    .nav a:hover{color:var(--gold)}
+    .nav a:first-child{color:var(--rose)}
+    .nav a span{margin-right:4px}
+    .hero-intro{text-align:center;padding:44px 20px 16px;position:relative;z-index:1}
+    .eyebrow{font-family:var(--tiny);font-size:9px;line-height:1.8;letter-spacing:1px;color:#e4a8be;text-transform:uppercase}
+    h1{font-family:var(--tiny);color:#ffe7dc;font-size:clamp(22px,4.3vw,49px);line-height:1.4;letter-spacing:1px;text-shadow:4px 4px 0 #b44473,7px 7px 0 #4e2d50,0 0 27px #fa69935c;margin:16px 0 9px}
+    h1 .h{font-size:.58em;color:#fd83aa;vertical-align:17%}
+    .subtitle{font-size:clamp(19px,2.4vw,29px);color:#ffd5dc;letter-spacing:1px;margin:0}
+    .subtitle strong{color:var(--gold);font-weight:600}
+    .intro-star{position:absolute;color:#ffcf8c;text-shadow:0 0 10px #ffbd70;animation:twinkle 2.1s steps(2) infinite}
+    .intro-star.left{left:13%;top:78px}.intro-star.right{right:13%;top:50px;animation-delay:-1.3s}.intro-star.extra{left:78%;top:136px;animation-delay:-.6s}
+
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:42px;align-items:start;padding:19px 49px 34px;position:relative;z-index:1}
+    .memory-side{padding:21px 4px 12px 10px;position:relative}
+    .polaroid{transform:rotate(-2deg);background:#f7dfcc;color:#5e3e4b;padding:16px 16px 11px;box-shadow:11px 13px 0 #120f2573,0 0 0 3px #fff0e5,0 0 0 5px #9e677c;position:relative;transition:transform .3s}
+    .polaroid:hover{transform:rotate(0deg) translateY(-4px)}
+    .polaroid::before{content:"";position:absolute;width:100px;height:25px;background:repeating-linear-gradient(45deg,#f28fad 0 7px,#fcb8c5 7px 14px);top:-19px;left:50%;transform:translateX(-50%) rotate(3deg);opacity:.9;border:1px solid #ffc5cd;box-shadow:2px 2px #a55a71;z-index:3}
+    .art-frame{background:#0c1627;border:6px solid #4f354b;box-shadow:inset 0 0 0 3px #0c101f;aspect-ratio:360 / 226;overflow:hidden;position:relative}
+    #memoryCanvas{display:block;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+    .art-frame::after{content:"";pointer-events:none;position:absolute;inset:0;background:linear-gradient(105deg,#fff2 0,transparent 20%,transparent 80%,#140f2055 100%);mix-blend-mode:screen}
+    .polaroid-footer{padding:8px 8px 2px;text-align:center}
+    .handwriting{font-family:var(--px);font-size:31px;font-weight:600;letter-spacing:.2px;line-height:1.12}
+    .handwriting .heart{color:#e97199;margin-left:5px}
+    .polaroid-footer p{font-size:18px;margin:3px 0 1px;color:#866775}
+    .memory-note{text-align:center;color:#e5c4c8;font-size:22px;line-height:1.2;margin:24px auto 0;max-width:390px}
+    .memory-note .highlight{color:#ffc68f}
+    .tiny-spark{position:absolute;font:25px var(--px);color:var(--gold);animation:twinkle 1.8s steps(2) infinite}
+    .tiny-spark.one{left:-25px;top:55px}.tiny-spark.two{right:-20px;top:77px;animation-delay:-1s}.tiny-spark.three{right:-12px;bottom:65px;animation-delay:-.5s}
+
+    .invite{padding-top:5px}
+    .invite-title{font-size:29px;font-weight:600;letter-spacing:.2px;color:#ffddb7;text-align:center;margin:0 0 19px}
+    .details{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .pixel-panel{border:3px solid #9e6c84;background:#594054aa;box-shadow:inset 4px 4px 0 #ffffff18,5px 5px 0 #1d162b;color:#f9e5de}
+    .detail{padding:15px 15px 13px;min-height:108px;display:flex;align-items:flex-start;gap:10px}
+    .detail .ico{font-size:30px;line-height:1}
+    .detail .mini{font-size:17px;color:#ecc4cf;margin:0 0 4px}
+    .detail strong{font-size:23px;line-height:1;display:block;color:white;font-weight:600}
+    .detail small{font-size:15px;display:block;color:#e8c9d5;margin-top:6px}
+    .plan{margin-top:17px;padding:19px 22px 15px}
+    .plan h2{font-size:24px;color:#ffe2c5;margin:0 0 12px;font-weight:600}
+    .plan ul{list-style:none;margin:0;padding:0}
+    .plan li{font-size:20px;line-height:1.65;display:flex;gap:11px}
+    .plan li::before{content:'♥';color:#ff89aa;font-size:15px;flex:none;line-height:2.2}
+    .buttons{margin-top:23px;display:grid;gap:12px}
+    .pixel-button{min-height:64px;border:3px solid #f8b4c8;box-shadow:inset 4px 4px 0 #ffffff44,5px 5px 0 #211729;color:#fff4ed;font-weight:700;font-size:23px;letter-spacing:.3px;padding:12px 16px;transition:transform .14s,box-shadow .14s,filter .14s;display:flex;justify-content:center;gap:14px;align-items:center;white-space:normal}
+    .pixel-button:hover{filter:brightness(1.12);transform:translate(-2px,-2px);box-shadow:inset 4px 4px 0 #ffffff44,7px 7px 0 #211729}
+    .pixel-button:active{transform:translate(4px,4px);box-shadow:none}
+    .pixel-button.primary{background:linear-gradient(180deg,#fa86ab 0%,#e45d92 100%);text-shadow:2px 2px #b44976}
+    .pixel-button.secondary{background:#57415b;border-color:#9e809b;color:#f6d9e4}
+    .pixel-button .button-ico{font-size:28px;color:#fff0f0}
+    .fine-print{text-align:center;color:#d8a7ba;font-size:16px;margin:18px 0 0}
+
+    .room-bottom{position:relative;display:flex;align-items:center;justify-content:space-around;gap:30px;min-height:170px;padding:18px 45px 26px;border-top:2px solid #7f546b;background:linear-gradient(0deg,#211a33,#35243edb);z-index:1}
+    .cat-scene{width:232px;height:127px;flex:0 0 auto;position:relative;overflow:hidden;border:4px solid #a67180;background:linear-gradient(#292347 0 55%,#5a3a66 55% 58%,#2a263d 58%);box-shadow:6px 6px #130f24}
+    .cat-scene::before{content:'☾';position:absolute;top:5px;left:24px;color:#ffd38c;font:39px var(--px);text-shadow:0 0 14px #ffc166;animation:twinkle 4s infinite}
+    .cat-scene::after{content:'✦  ·   ✧     ·  ✦';position:absolute;right:5px;top:12px;color:#ffdca9;font-size:15px}
+    .window-city{position:absolute;bottom:26px;left:0;right:0;height:34px;background:repeating-linear-gradient(90deg,#261f46 0 17px,#39284e 17px 29px,#251e3c 29px 39px)}
+    .window-sill{position:absolute;bottom:0;width:100%;height:26px;background:#7c556a;box-shadow:inset 0 5px #ae7685}
+    .cat{position:absolute;font-size:55px;bottom:11px;left:76px;filter:drop-shadow(4px 5px 0 #292139);animation:catNap 3s ease-in-out infinite}
+    @keyframes catNap{50%{transform:translateY(2px) scale(.98)}}
+    .zzz{position:absolute;font-size:15px;color:#f4d6ec;top:20px;left:144px;animation:zzz 2.5s linear infinite}
+    @keyframes zzz{0%{opacity:0;transform:translateY(8px)}45%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+    .bottom-copy{text-align:center;flex:1;min-width:0}
+    .bottom-copy .headline{font-family:var(--tiny);font-size:clamp(11px,1.55vw,16px);line-height:2;color:#ffc4c9;letter-spacing:0}
+    .bottom-copy p{font-size:19px;color:#e2b6c9;line-height:1.4;margin:8px 0 0}
+    .snacks{font-size:61px;filter:drop-shadow(4px 7px 0 #20172b);animation:snackBob 3s ease-in-out infinite;flex:0 0 auto}
+    @keyframes snackBob{50%{transform:translateY(-6px) rotate(3deg)}}
+    .footer{text-align:center;color:#b895ae;font-size:15px;margin:25px auto 0;line-height:1.5}
+    .footer b{color:#fa83a9;font-weight:500}
+
+    .floating-hearts{position:fixed;inset:0;z-index:70;pointer-events:none;overflow:hidden}
+    .fall-heart{position:absolute;top:-50px;font-family:var(--px);animation:heartFall var(--dur) linear forwards;color:var(--color);font-size:var(--size);text-shadow:2px 3px 0 #4a25504d;left:var(--left)}
+    @keyframes heartFall{0%{transform:translateY(-8vh) translateX(0) rotate(0);opacity:0}8%{opacity:1}90%{opacity:1}100%{transform:translateY(110vh) translateX(var(--drift)) rotate(var(--rotation));opacity:0}}
+    .overlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:#100c21d9;backdrop-filter:blur(5px);padding:20px}
+    .overlay.open{display:flex}
+    .modal{position:relative;max-width:470px;width:100%;border:5px solid #ffb2c5;box-shadow:0 0 0 5px #553450,12px 12px 0 #0d0a1e;background:linear-gradient(140deg,#4f334f,#2c243c);text-align:center;padding:39px 28px 29px}
+    .modal .pixel-heart{font-size:64px;display:block;animation:heartBeat 1.2s ease-in-out infinite;color:#ff9db8;text-shadow:5px 5px 0 #a04773}
+    @keyframes heartBeat{50%{transform:scale(1.13)}}
+    .modal h2{font-family:var(--tiny);font-size:clamp(17px,3vw,24px);line-height:1.7;margin:14px 0 10px;color:#ffe3db}
+    .modal p{font-size:22px;line-height:1.4;color:#f5d5dc}
+    .modal .modal-date{color:#ffd19b;font-size:20px}
+    .modal-close{position:absolute;right:13px;top:8px;border:0;background:transparent;color:#ffe5e8;font-size:27px;padding:4px 7px}
+    .modal .pixel-button{width:100%;margin-top:16px;font-size:20px;min-height:57px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:960px){.site{width:min(850px,calc(100% - 28px));margin-top:18px}.hero-grid{gap:25px;padding:16px 30px 30px}.detail{padding:12px 9px;gap:7px}.detail strong{font-size:20px}.detail .ico{font-size:25px}.plan{padding:15px}.plan li{font-size:18px}.pixel-button{font-size:20px;padding:12px 10px}.nav{gap:13px}.topbar{padding-inline:22px}}
+    @media(max-width:750px){.hero-grid{grid-template-columns:1fr;max-width:560px;margin:auto;gap:3px;padding:8px 22px 31px}.memory-side{padding:18px 16px 9px}.memory-note{margin:18px 0 4px}.hero-intro{padding:34px 12px 9px}.invite{padding:20px 6px 0}.invite-title{font-size:26px;margin-bottom:14px}.topbar{justify-content:center;flex-wrap:wrap;gap:9px;min-height:80px;padding-top:13px}.nav{width:100%;justify-content:center;gap:20px}.nav a{font-size:15px}.room-bottom{padding-inline:22px}.cat-scene{width:140px;height:100px}.cat{left:33px}.zzz{left:94px}.snacks{font-size:48px}}
+    @media(max-width:520px){.site{width:calc(100% - 18px);margin:12px auto 32px}.outer-frame{border-width:3px}.brand{font-size:10px}.topbar{gap:10px;padding:17px 5px 11px}.nav{gap:13px}.nav a{font-size:13px}.nav a span{display:none}.hero-intro{padding-top:35px}.eyebrow{font-size:7px;letter-spacing:0}.intro-star.left{left:5%;top:73px}.intro-star.right{right:6%;top:52px}.intro-star.extra{display:none}h1{font-size:clamp(21px,5.4vw,27px);text-shadow:3px 3px 0 #b44473,5px 5px 0 #4e2d50}.subtitle{font-size:20px}.hero-grid{padding:8px 13px 27px}.memory-side{padding:16px 9px 6px}.polaroid{padding:10px 10px 8px}.art-frame{border-width:4px}.polaroid-footer{padding-top:7px}.handwriting{font-size:24px}.polaroid-footer p{font-size:15px}.memory-note{font-size:19px}.invite{padding-inline:4px}.detail{min-height:93px}.detail strong{font-size:20px}.detail small{font-size:13px}.detail .mini{font-size:15px}.plan h2{font-size:23px}.plan li{font-size:18px;line-height:1.6}.pixel-button{min-height:59px}.room-bottom{min-height:135px;padding:16px;gap:14px}.cat-scene{display:none}.bottom-copy .headline{font-size:10px}.bottom-copy p{font-size:16px}.snacks{font-size:42px}.footer{font-size:13px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+  </style>
+</head>
+<body>
+  <div class="night-sky" aria-hidden="true"></div>
+  <span class="sky-heart a" aria-hidden="true">♥</span>
+  <span class="sky-heart b" aria-hidden="true">✦</span>
+  <span class="sky-heart c" aria-hidden="true">♥</span>
+  <div class="floating-hearts" id="hearts" aria-hidden="true"></div>
+
+  <main class="site" id="home">
+    <div class="outer-frame">
+      <div class="string-lights" aria-hidden="true"><i class="light"></i><i class="light"></i><i class="light"></i><i class="light"></i><i class="light"></i><i class="light"></i></div>
+      <header class="topbar">
+        <div class="brand"><span>♥</span> OUR LITTLE CORNER <span>♥</span></div>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#home"><span>⌂</span> Home</a>
+          <a href="#memory"><span>♥</span> Our Memory</a>
+          <a href="#the-plan"><span>★</span> The Plan</a>
+        </nav>
+      </header>
+
+      <section class="hero-intro" aria-labelledby="hero-title">
+        <span class="intro-star left" aria-hidden="true">✦</span><span class="intro-star right" aria-hidden="true">✧</span><span class="intro-star extra" aria-hidden="true">✦</span>
+        <div class="eyebrow">★ a tiny invitation, just for you ★</div>
+        <h1 id="hero-title"><span class="h">♥</span> MOVIE NIGHT? <span class="h">♥</span></h1>
+        <p class="subtitle">This <strong>Friday</strong> with me? ♡</p>
+      </section>
+
+      <section class="hero-grid">
+        <div class="memory-side" id="memory">
+          <span class="tiny-spark one" aria-hidden="true">✧</span>
+          <span class="tiny-spark two" aria-hidden="true">♥</span>
+          <span class="tiny-spark three" aria-hidden="true">✦</span>
+          <div class="polaroid" aria-label="A treasured memory">
+            <div class="art-frame">
+              <canvas id="memoryCanvas" width="360" height="226" role="img" aria-label="Animated pixel art view from inside an open car boot looking out over ocean waves, a glowing sunset, and the beach"></canvas>
+            </div>
+            <div class="polaroid-footer">
+              <div class="handwriting">Our little sunset <span class="heart">♥</span></div>
+              <p>one of my favourite memories with you</p>
+            </div>
+          </div>
+          <p class="memory-note">That sunset, those waves, and <span class="highlight">you</span>.<br />I'd do it all again. ♡</p>
+        </div>
+
+        <div class="invite" id="the-plan">
+          <p class="invite-title">A cozy night, just for us ✨</p>
+          <div class="details">
+            <div class="pixel-panel detail">
+              <span class="ico" aria-hidden="true">🗓️</span>
+              <div><p class="mini">The date</p><strong id="date-label">Friday</strong><small id="date-small">23 October</small></div>
+            </div>
+            <div class="pixel-panel detail">
+              <span class="ico" aria-hidden="true">🕗</span>
+              <div><p class="mini">The time</p><strong id="time-label">8:00 PM</strong><small>movie o'clock</small></div>
+            </div>
+          </div>
+          <div class="pixel-panel plan">
+            <h2>🍿 The plan</h2>
+            <ul>
+              <li>Pick something good to watch</li>
+              <li>Popcorn, snacks & all the treats</li>
+              <li>Warm blankets and comfy clothes</li>
+              <li>Me, you, and a little movie magic</li>
+            </ul>
+          </div>
+          <div class="buttons">
+            <button class="pixel-button primary" id="yesButton" type="button"><span class="button-ico" aria-hidden="true">♡</span> Yes, I'd love to! <span aria-hidden="true">→</span></button>
+            <button class="pixel-button secondary" id="calendarButton" type="button"><span aria-hidden="true">🎟️</span> Save our date <span aria-hidden="true">→</span></button>
+          </div>
+          <p class="fine-print">P.S. Your favourite snacks are very welcome. ♡</p>
+        </div>
+      </section>
+
+      <section class="room-bottom" aria-label="A little cozy corner">
+        <div class="cat-scene" aria-hidden="true"><div class="window-city"></div><div class="window-sill"></div><span class="cat">🐈</span><span class="zzz">z z z</span></div>
+        <div class="bottom-copy">
+          <div class="headline">SAME MOVIES.<br />BETTER TOGETHER. <span aria-hidden="true">♥</span></div>
+          <p>Different stories, same happy ending — with you.</p>
+        </div>
+        <div class="snacks" aria-hidden="true">🍿</div>
+      </section>
+    </div>
+    <p class="footer">crafted with <b>♥</b> and a suspicious amount of pixel art.</p>
+  </main>
+
+  <div class="overlay" id="responseOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close">×</button>
+      <span class="pixel-heart" aria-hidden="true">♥</span>
+      <h2 id="modalTitle">IT'S A DATE!</h2>
+      <p>Yay!! Can't wait for another cozy little night with you. 💗</p>
+      <p class="modal-date" id="modalDate">Friday, 23 October · 8:00 PM</p>
+      <button class="pixel-button primary" id="copyButton" type="button">♡ Copy my YES!</button>
+    </div>
+  </div>
+
+  <script>
+    'use strict';
+    // ✨ PERSONALISE YOUR INVITATION HERE ✨
+    // 23 October 2026 is the Friday following this invitation's creation.
+    // Change these values whenever you'd like. Date must be YYYY-MM-DD.
+    const INVITATION = {
+      date: '2026-10-23',
+      time: '20:00',         // 24-hour time; e.g. 19:30 = 7:30 PM
+      durationHours: 3,
+      calendarTitle: 'Movie night together ♡',
+      calendarLocation: 'Our cozy movie spot',
+      yesMessage: "YES! I'd love to have a movie night with you! ♡"
+    };
+
+    const eventDay = new Date(`${INVITATION.date}T${INVITATION.time}:00`);
+    if (Number.isFinite(eventDay.getTime())) {
+      document.querySelector('#date-label').textContent = new Intl.DateTimeFormat('en-NZ', { weekday:'long' }).format(eventDay);
+      document.querySelector('#date-small').textContent = new Intl.DateTimeFormat('en-NZ', { day:'numeric',month:'long' }).format(eventDay);
+      document.querySelector('#time-label').textContent = new Intl.DateTimeFormat('en-NZ', { hour:'numeric',minute:'2-digit',hour12:true }).format(eventDay);
+      document.querySelector('#modalDate').textContent = new Intl.DateTimeFormat('en-NZ', { weekday:'long',day:'numeric',month:'long' }).format(eventDay) + ' · ' + document.querySelector('#time-label').textContent;
+    }
+
+    const overlay = document.querySelector('#responseOverlay');
+    const hearts = document.querySelector('#hearts');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let previouslyFocused = null;
+    function openYes() {
+      previouslyFocused = document.activeElement;
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden','false');
+      document.querySelector('#modalClose').focus();
+      if (!prefersReducedMotion.matches) showerHearts();
+    }
+    function closeYes() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden','true');
+      previouslyFocused?.focus();
+    }
+    document.querySelector('#yesButton').addEventListener('click',openYes);
+    document.querySelector('#modalClose').addEventListener('click',closeYes);
+    overlay.addEventListener('click',e=>{if(e.target===overlay)closeYes()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeYes()});
+    document.querySelector('#copyButton').addEventListener('click',async()=>{
+      const button=document.querySelector('#copyButton');
+      try{await navigator.clipboard.writeText(INVITATION.yesMessage);button.textContent='✓ Copied! Send it to me ♡'}
+      catch{button.textContent='♥ ' + INVITATION.yesMessage}
+    });
+    function showerHearts(){
+      const colours=['#ff8eb9','#ffd18c','#f8e7dc','#c7a1f0','#f0708c'];
+      for(let i=0;i<38;i++){
+        const heart=document.createElement('span');heart.className='fall-heart';
+        heart.textContent=['♥','♥','✦','♡'][i%4];
+        heart.style.setProperty('--left',Math.random()*100+'vw');
+        heart.style.setProperty('--dur',(3+Math.random()*3)+'s');
+        heart.style.setProperty('--size',(15+Math.random()*20)+'px');
+        heart.style.setProperty('--color',colours[Math.floor(Math.random()*colours.length)]);
+        heart.style.setProperty('--drift',(Math.random()-.5)*160+'px');
+        heart.style.setProperty('--rotation',Math.round(Math.random()*500-250)+'deg');
+        heart.style.animationDelay=Math.random()*1.7+'s';
+        heart.addEventListener('animationend',()=>heart.remove(),{once:true});hearts.appendChild(heart);
+      }
+    }
+    function calendarTime(date){ // floating local event time (no UTC assumptions)
+      return date.getFullYear().toString().padStart(4,'0')+
+        String(date.getMonth()+1).padStart(2,'0')+String(date.getDate()).padStart(2,'0')+
+        'T'+String(date.getHours()).padStart(2,'0')+String(date.getMinutes()).padStart(2,'0')+'00';
+    }
+    document.querySelector('#calendarButton').addEventListener('click',()=>{
+      const end=new Date(eventDay.getTime()+INVITATION.durationHours*3600000);
+      const escapeICS=s=>String(s).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+      const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Our Little Corner//Movie Night//EN','BEGIN:VEVENT',
+        'UID:movie-night-'+INVITATION.date+'@our-little-corner',
+        'DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'').replace(/Z$/,'Z'),
+        'DTSTART:'+calendarTime(eventDay),'DTEND:'+calendarTime(end),
+        'SUMMARY:'+escapeICS(INVITATION.calendarTitle),
+        'LOCATION:'+escapeICS(INVITATION.calendarLocation),
+        'DESCRIPTION:'+escapeICS('A cozy evening of movies, snacks and quality time together ♡'),
+        'END:VEVENT','END:VCALENDAR'].join('\r\n');
+      const url=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));
+      const anchor=document.createElement('a');anchor.href=url;anchor.download='our-movie-night.ics';anchor.click();
+      setTimeout(()=>URL.revokeObjectURL(url),2000);
+    });
+
+    // ────────────────────────────────────────────────────────────────────────
+    // THE ANIMATED PIXEL-ART MEMORY — all drawn in this one HTML file.
+    // Viewpoint: inside the open boot of a car parked beside the beach.
+    // Low-resolution canvas is enlarged with crisp nearest-neighbour pixels.
+    // Waves lap, light dances, clouds drift, and the sun shimmers on water.
+    // ────────────────────────────────────────────────────────────────────────
+    const canvas=document.querySelector('#memoryCanvas');
+    const ctx=canvas.getContext('2d',{alpha:false});
+    const W=360,H=226;
+    ctx.imageSmoothingEnabled=false;
+    const rng=(function(){let s=19273;return()=>((s=(s*16807)%2147483647)/2147483647)})();
+    const specks=Array.from({length:76},()=>({x:20+Math.floor(rng()*320),y:9+Math.floor(rng()*106),size:rng()>.84?2:1,shift:rng()*7}));
+    const glimmers=Array.from({length:48},()=>({x:38+Math.floor(rng()*288),y:152+Math.floor(rng()*47),w:1+Math.floor(rng()*5),offset:rng()*9}));
+    function rect(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))}
+    function poly(points,c){ctx.fillStyle=c;ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);ctx.closePath();ctx.fill()}
+    function line(x1,y1,x2,y2,c,width=1){ctx.strokeStyle=c;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(Math.round(x1)+.5,Math.round(y1)+.5);ctx.lineTo(Math.round(x2)+.5,Math.round(y2)+.5);ctx.stroke()}
+    function blockCircle(cx,cy,r,c){const r2=r*r;for(let y=-r;y<=r;y+=2){let half=Math.floor(Math.sqrt(Math.max(0,r2-y*y)));rect(cx-half,cy+y,2*half,2,c)}}
+    function cloud(x,y,s,shadow){
+      const p=[[0,8,47,8],[7,4,30,12],[17,0,21,14],[33,5,40,11],[48,9,20,7],[-7,12,68,8]];
+      for(const [a,b,w,h] of p)rect(x+a*s,y+b*s,w*s,h*s,shadow?'#dc779b':'#ef91ad');
+      rect(x+8*s,y+3*s,31*s,2*s,'#ffc4b1');
+      rect(x+3*s,y+16*s,51*s,2*s,'#ad5988');
+    }
+    function wave(xbase,y,length,time,shade){
+      const shift=Math.floor(Math.sin(time*1.5+y*.9)*4);
+      for(let x=xbase;x<xbase+length;x+=3){const off=Math.round(Math.sin(x*.07+time*1.8+y*.11)*2);rect(x+shift,y+off,4,1,shade)}
+    }
+    function scene(time){
+      ctx.imageSmoothingEnabled=false;
+      // Quantised movement feels like an actual sprite animation, not a blur.
+      const t=Math.floor(time*12)/12;
+      // Rich dusk sky: colour bands and the last orange light at the horizon.
+      const bands=['#25214c','#292451','#342854','#48305e','#623a6a','#814969','#a35a72','#c96e77','#eb897c','#f7aa80','#f8bb8e'];
+      bands.forEach((c,i)=>rect(0,i*14,360,15,c));
+      rect(0,137,360,9,'#f0ad85');
+      // The horizon haze and hazy far-off clouds.
+      cloud(54+Math.round(Math.sin(t*.17)*8),53,1.03,false);
+      cloud(222-Math.round((t*.45)%26),42,.8,true);
+      cloud(150+Math.round(Math.sin(t*.13+1)*5),86,.57,true);
+      cloud(296-Math.round((t*.34)%25),93,.5,false);
+      cloud(-6+Math.round(Math.sin(t*.14)*9),101,.64,true);
+      // Few pixel birds, passing in the distance.
+      const birdx=79+Math.round(Math.sin(t*.18)*17);
+      line(birdx,84,birdx+3,86,'#422c5c');line(birdx+3,86,birdx+6,84,'#422c5c');
+      line(birdx+18,80,birdx+20,82,'#422c5c');line(birdx+20,82,birdx+23,80,'#422c5c');
+      // The sun sinks into the distant sea, seen through the open hatch.
+      blockCircle(242,124,23,'#ffe29b');
+      blockCircle(242,126,17,'#ffd189');
+      rect(207,136,75,5,'#f8b78b');
+      // Silhouette of a coastal headland on the left and distant beach on right.
+      poly([[0,128],[15,123],[29,124],[39,129],[50,127],[60,132],[69,131],[78,139],[91,145],[0,145]],'#5b496a');
+      poly([[0,137],[12,133],[22,137],[39,134],[55,141],[81,143],[0,150]],'#403a61');
+      poly([[298,143],[310,137],[320,135],[328,139],[339,137],[360,132],[360,151],[300,149]],'#594665');
+      // Sea: long blue-to-peach bands, with a living edge of little waves.
+      rect(0,143,360,17,'#495075');
+      rect(0,160,360,14,'#4d5b7b');
+      rect(0,174,360,13,'#536781');
+      rect(0,187,360,16,'#637383');
+      rect(0,203,360,23,'#827b8d');
+      for(let y=146;y<208;y+=5){
+        const drift=Math.floor(Math.sin(t*.8+y)*5);
+        for(let x=24;x<350;x+=27){
+          const jitter=Math.round(Math.sin(x*.11+y*.4+t)*3);
+          rect(x+drift+jitter,y,10+(y>186?6:0),1,y%2?'#7893a0':'#7790a0');
+        }
+      }
+      for(let k=0;k<14;k++){
+        const y=146+k*4;
+        const width=Math.round((y-139)*.6)+5;
+        const wobble=Math.round(Math.sin(k+t*3)*4);
+        const x=242-Math.round(width/2)+wobble;
+        rect(x,y,Math.max(5,width),k%3===0?2:1,k%2===0?'#f0be96':'#f9d3a4');
+        if(k>3){rect(x-11,y,4,1,'#d6a9a1');rect(x+width+5,y,3,1,'#f4ba95')}
+      }
+      // Wave crests; each layer slides back and forth at its own cadence.
+      for(let i=0;i<19;i++){
+        const y=151+i*3;
+        const base=35+(i*31)%240;
+        wave(base,y,26+(i%5)*12,t+i*.5,i%4===0?'#ffd3ac':'#9cacb2');
+      }
+      // Moving swashes of pale foam at the shore.
+      const swell=Math.round(Math.sin(t*1.35)*3);
+      for(let i=0;i<7;i++){
+        const y=197+i*2+(i%2)*3;
+        wave(29+i*8,y+swell,170+(i%3)*38,t+i,'#d3bcc0');
+      }
+      // Sun-kissed glimmers across the water; stable positions, blinking.
+      for(const g of glimmers){
+        const flicker=Math.sin(t*2.8+g.offset+g.x*.31);
+        if(flicker>-.28)rect(g.x+Math.round(Math.sin(t+g.offset)*2),g.y,g.w,1,g.y<175?'#f7bc9b':'#e8c0b4');
+      }
+      // Grain in the sky is tiny and intentional, keeping the pixel-art look.
+      for(const s of specks){if(s.y<100&&Math.sin(t*.66+s.shift)>-.7)rect(s.x,s.y,s.size,1,'#f6c29a44')}
+      // BEACH PARKING: silhouettes of a strip of sand and coastal grass.
+      poly([[0,199],[28,193],[45,195],[65,201],[85,205],[0,226]],'#68556a');
+      poly([[320,203],[334,199],[350,200],[360,196],[360,226],[300,226]],'#735567');
+      for(let i=0;i<8;i++){
+        const x=13+i*6;line(x,199-(i%3)*2,x-2,192-(i%5)*2,'#39384c');
+      }
+      // THIS IS THE BOOT INTERIOR. It frames the whole sunset like a window.
+      // Curved underside of the raised hatch, with tiny highlights on the seal.
+      poly([[0,0],[360,0],[360,82],[353,77],[348,64],[342,50],[333,39],[323,28],[306,20],[288,16],[72,16],[54,20],[38,28],[27,39],[18,56],[11,74],[0,86]],'#171726');
+      poly([[0,0],[360,0],[360,20],[315,20],[301,15],[59,15],[43,20],[0,20]],'#2c2535');
+      poly([[12,48],[23,34],[38,23],[55,15],[69,15],[72,18],[53,25],[39,33],[27,47],[19,65]],'#504057');
+      poly([[288,15],[305,16],[326,24],[339,36],[348,53],[341,44],[330,32],[310,24],[291,19]],'#4b3b54');
+      rect(81,14,194,3,'#43364b');
+      rect(98,16,161,1,'#876279');
+      rect(170,10,22,5,'#655168');rect(176,15,10,3,'#9c7387');
+      // Heavy side seals and inner side panels.
+      poly([[0,0],[15,0],[26,30],[29,51],[29,112],[22,153],[20,189],[26,212],[0,226]],'#171724');
+      poly([[360,0],[345,0],[334,29],[330,50],[331,113],[338,158],[342,191],[334,212],[360,226]],'#171724');
+      poly([[0,57],[9,60],[16,93],[16,155],[22,186],[31,210],[0,226]],'#282232');
+      poly([[360,52],[351,57],[345,95],[346,154],[339,183],[330,208],[360,226]],'#30283a');
+      poly([[0,110],[8,108],[12,149],[11,183],[0,192]],'#4b3846');
+      poly([[360,107],[353,105],[349,144],[351,181],[360,191]],'#4c3a4e');
+      line(27,55,29,115,'#776177');line(331,52,331,115,'#70566c');
+      // Rear hatch catches and the little tailgate hinges.
+      rect(0,122,15,6,'#4c3c50');rect(345,122,15,6,'#48374d');
+      rect(11,127,8,3,'#9d7d88');rect(341,127,8,3,'#9d7d88');
+      // Floor of the open boot; blanket draped over the back edge.
+      poly([[0,211],[29,200],[56,197],[94,201],[116,206],[259,206],[288,200],[321,198],[343,210],[360,217],[360,226],[0,226]],'#242232');
+      poly([[13,218],[57,206],[88,204],[111,210],[249,209],[276,204],[312,207],[351,222],[351,226],[13,226]],'#8f657b');
+      poly([[38,218],[87,207],[135,214],[202,210],[269,212],[321,220],[336,226],[32,226]],'#b27b8b');
+      for(let i=0;i<18;i++){
+        const x=42+i*15;rect(x,218+(i%3)*2,9,2,i%2?'#d2999e':'#74566e');
+      }
+      // Two warm drinks next to each other on the blanket.
+      rect(270,198,12,15,'#d4a38c');rect(272,195,8,4,'#fff0d2');rect(274,196,5,1,'#805747');
+      rect(282,202,4,7,'#b67e88');rect(286,204,2,3,'#dda5a5');
+      rect(293,201,11,13,'#e7bc98');rect(295,198,7,4,'#fff0ce');rect(296,199,5,1,'#865949');
+      rect(304,205,4,6,'#ad7585');rect(309,207,2,3,'#d69aa1');
+      // A tiny pink paper heart on the blanket.
+      poly([[176,216],[173,213],[169,214],[167,217],[168,220],[176,225],[184,220],[185,217],[182,214],[179,213]],'#f6a5ad');
+      rect(175,221,3,2,'#ffd7c0');
+    }
+    let frameId=0;
+    function render(timestamp){scene(timestamp/1000);frameId=requestAnimationFrame(render)}
+    if(prefersReducedMotion.matches){scene(0)}else{frameId=requestAnimationFrame(render)}
+    prefersReducedMotion.addEventListener?.('change',e=>{
+      cancelAnimationFrame(frameId);if(e.matches)scene(0);else frameId=requestAnimationFrame(render);
+    });
+  </script>
+</body>
+</html>
